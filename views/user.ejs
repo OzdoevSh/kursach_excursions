@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Scada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Paytone+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/style/style.css">
+    <title>Личный кабинет</title>
+</head>
+<body>
+    <header>
+        <div class="menu">
+            <li><a href="/excursion">Музеи</a></li>
+            <li>О компании</li>
+            <li><a href="/" class="logo">EdMuseum</a></li>
+            <li>Контакты</li>
+            <li><a href="/review">Отзывы</a></li>
+        </div>
+    </header>
+    <form action="/exit" method="GET">
+        <input type="submit" class="buttonSignOut" value="Выйти"/>
+    </form>
+    
+
+    <main>
+        <div class="user_order">
+            <div class="userInf">
+                <div>
+                    <h1>Личный кабинет</h1>
+                    <img src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="">
+                </div>
+
+                <form action="/excursion" method="GET">
+                    <input type="submit" class="chooseExc" value="Выбрать экскурсию"/>
+                </form>
+                
+                <form action="/addreview" method="GET">
+                    <input type="submit" class="addRev" value="Оставить отзыв"/>
+                </form>
+                
+            </div>
+            <div class="orderInf">
+                <div>
+                    <%if ((typeof chosenExc == "undefined") || (chosenExc == null)) {%>
+                        <div class = "text-center">
+                        <p style="font-size: 25px"> Ваш заказ пуст!</p>
+                        </div>
+                    <%} else {%>
+                    <% for (let i = 0; i < chosenExc.length; i++) {%>
+                    <h1>Ваш заказ:</h1>
+                    <p><b class="wordColor">Экскурсия: </b><%=chosenExc[i].name%></p>
+                    <p><b class="wordColor">Дата: </b><%=chosenExc[i].date%></p>
+                    <p><b class="wordColor">Цена: </b><%=chosenExc[i].cost%></p>
+                    <form action="/addOrder" method="POST">
+                        <button class="buttonOrder">Оформить заказ</button>
+                    </form>
+                    <form action="/clear_order" method="POST">
+                        <input type="submit" class="buttonOrder" value="Очистить заказ"/>
+                    </form>
+                    <%}}%>
+                    <h1>Оформленные заказы:</h1>
+                    <% for (let i = 0; i < ordOrd.length; i++) {%>
+                    <p><b class="wordColor">Экскурсия: </b><%=ordOrd[i].name%></p>
+                    <p><b class="wordColor">Дата: </b><%=ordOrd[i].date%></p>
+                    <p><b class="wordColor">Цена: </b><%=ordOrd[i].cost%></p>
+                    <div>---------------------------------------------------</div>
+                        <%}%>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+    
+    </footer>
+    </body>
+    </html>
+    
